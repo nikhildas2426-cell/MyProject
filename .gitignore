@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE
+.idea/
+
+# Video files
+static/videos/*.mp4
+
+# Optional Flask/database files
+*.log
