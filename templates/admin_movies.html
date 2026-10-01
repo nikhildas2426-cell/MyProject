@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Movies - Stremex</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='admin.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        STREMEX ADMIN
+    </div>
+
+    <nav>
+
+        <a href="/admin">
+            Dashboard
+        </a>
+
+        <a href="/admin/users">
+            Users
+        </a>
+
+        <a href="/admin/movies" class="active">
+            Movies
+        </a>
+
+        <a href="/admin/analytics">
+            Analytics
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+<div class="page-title">
+
+    <h1>
+        Movie Management
+    </h1>
+
+    <p>
+        Upload and manage movies
+    </p>
+
+</div>
+
+<!-- Upload Movie -->
+
+<div class="form-container">
+
+    <h2>
+        Upload New Movie
+    </h2>
+
+    <form
+    action="/upload_movie"
+    method="POST"
+    enctype="multipart/form-data">
+
+        <input
+        type="text"
+        name="name"
+        placeholder="Movie Name"
+        required>
+
+        <input
+        type="text"
+        name="genre"
+        placeholder="Genre"
+        required>
+
+        <input
+        type="text"
+        name="language"
+        placeholder="Language"
+        required>
+
+        <textarea
+        name="description"
+        placeholder="Movie Description">
+        </textarea>
+
+        <label>Poster Image</label>
+
+        <input
+        type="file"
+        name="poster"
+        accept="image/*"
+        required>
+
+        <label>Movie Video</label>
+
+        <input
+        type="file"
+        name="video"
+        accept="video/*"
+        required>
+
+        <button type="submit">
+            Upload Movie
+        </button>
+
+    </form>
+
+</div>
+
+<!-- Uploaded Movies -->
+
+<div class="table-container">
+
+<h2 style="margin-bottom:20px;">
+Uploaded Movies
+</h2>
+
+<table>
+
+<tr>
+
+<th>ID</th>
+
+<th>Poster</th>
+
+<th>Name</th>
+
+<th>Genre</th>
+
+<th>Language</th>
+
+<th>Action</th>
+
+</tr>
+
+{% for movie in movies %}
+
+<tr>
+
+<td>
+{{ movie['id'] }}
+</td>
+
+<td>
+
+<img
+src="{{ url_for('static', filename=movie['poster']) }}"
+width="80">
+
+</td>
+
+<td>
+{{ movie['name'] }}
+</td>
+
+<td>
+{{ movie['genre'] }}
+</td>
+
+<td>
+{{ movie['language'] }}
+</td>
+
+<td>
+
+<a
+href="/delete_movie/{{ movie['id'] }}"
+class="delete-btn">
+
+Delete
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>

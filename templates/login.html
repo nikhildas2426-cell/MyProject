@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Stremex - Sign In</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='login.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="login-container">
+
+    <div class="login-box">
+
+        <h1 class="logo">STREMEX</h1>
+
+        <p class="subtitle">
+            Sign in to continue streaming your favorite movies and sports.
+        </p>
+
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="/check_login" method="POST">
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    required>
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                    required>
+            </div>
+
+            <div class="options">
+
+                <label class="show-pass">
+                    <input
+                        type="checkbox"
+                        onclick="togglePassword()">
+                    Show Password
+                </label>
+
+                <a href="#" class="forgot">
+                    Forgot Password?
+                </a>
+
+            </div>
+
+            <button class="login-btn" type="submit">
+                Sign In
+            </button>
+
+        </form>
+
+        <p class="signup-text">
+            Don't have an account?
+            <a href="{{ url_for('signup') }}">
+                Create Account
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    password.type =
+        password.type === "password"
+        ? "text"
+        : "password";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Stremex</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='home.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+
+<div class="logo">
+    STREMEX
+</div>
+
+<div class="search-box">
+
+    <input
+    type="text"
+    id="searchInput"
+    placeholder="Search movies..."
+    onkeyup="searchVideos()">
+
+    <div id="suggestions"
+         class="suggestions">
+    </div>
+
+</div>
+
+<nav>
+
+    <a href="/home" class="active">
+        Home
+    </a>
+
+    <a href="/movies">
+        Movies
+    </a>
+
+    <a href="/suggestions">
+        Sports
+    </a>
+
+    <a href="/mylist">
+        ➕ My List
+    </a>
+
+    <a href="/logout">
+        Logout
+    </a>
+
+</nav>
+
+
+</header>
+
+{% if featured_movie %}
+
+<section
+class="hero"
+style="
+background:
+linear-gradient(
+rgba(0,0,0,.25),
+rgba(0,0,0,.85)
+),
+url('{{ url_for('static', filename=featured_movie.poster) }}?v={{ featured_movie.id }}');
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+">
+
+    <div class="hero-content">
+
+        <span class="tag">
+            LATEST RELEASE
+        </span>
+
+        <h1>
+            {{ featured_movie.name }}
+        </h1>
+
+        <p>
+            {{ featured_movie.description }}
+        </p>
+
+        <button
+        class="play-btn"
+        onclick="playVideo('/static/{{ featured_movie.video }}')">
+
+            ▶ Play Now
+
+        </button>
+
+    </div>
+
+</section>
+
+
+{% endif %}
+
+<section class="section">
+
+
+<h2>
+    Recently Uploaded Movies
+</h2>
+
+<div class="row" id="movieRow">
+
+    {% for movie in movies %}
+
+    <div class="movie-card">
+
+        <img
+        src="{{ url_for('static', filename=movie.poster) }}"
+        data-title="{{ movie.name }}"
+        onclick="playVideo('/static/{{ movie.video }}')">
+
+        <div class="movie-info">
+
+            <h3>
+                {{ movie.name }}
+            </h3>
+
+            <p class="genre">
+                {{ movie.genre }}
+            </p>
+
+            <div class="stats">
+
+                <span>
+                    ⭐ {{ ratings[movie.id] }}
+                </span>
+
+                <span>
+                    ❤️ {{ likes[movie.id] }}
+                </span>
+
+            </div>
+
+            <div class="movie-buttons">
+
+                <a
+                href="/like/{{ movie.id }}"
+                class="like-btn">
+
+                    ❤️ Like
+
+                </a>
+
+                <a
+                href="/mylist/{{ movie.id }}"
+                class="list-btn">
+
+                    {% if movie.id in mylist_movies %}
+                        ❌ Remove
+                    {% else %}
+                        ➕ My List
+                    {% endif %}
+
+                </a>
+
+            </div>
+
+            <div class="rating-box">
+
+                <span>
+                    Rate:
+                </span>
+
+                <a href="/rate/{{ movie.id }}/1">
+                    ⭐1
+                </a>
+
+                <a href="/rate/{{ movie.id }}/2">
+                    ⭐2
+                </a>
+
+                <a href="/rate/{{ movie.id }}/3">
+                    ⭐3
+                </a>
+
+                <a href="/rate/{{ movie.id }}/4">
+                    ⭐4
+                </a>
+
+                <a href="/rate/{{ movie.id }}/5">
+                    ⭐5
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+
+</section>
+
+<div
+id="videoContainer"
+class="video-container">
+
+
+<button
+class="close-btn"
+onclick="closeVideo()">
+
+    ✕
+
+</button>
+
+<video
+id="videoPlayer"
+controls>
+
+</video>
+
+
+</div>
+
+<p id="noResult">
+    No movie found
+</p>
+
+<script>
+
+let video =
+document.getElementById("videoPlayer");
+
+let container =
+document.getElementById("videoContainer");
+
+function playVideo(src){
+
+    video.src = src;
+
+    container.style.display =
+    "block";
+
+    video.play();
+}
+
+function closeVideo(){
+
+    video.pause();
+
+    video.currentTime = 0;
+
+    container.style.display =
+    "none";
+}
+
+function searchVideos(){
+
+    let input =
+    document.getElementById("searchInput")
+    .value.toLowerCase();
+
+    let movies =
+    document.querySelectorAll("#movieRow img");
+
+    let suggestions =
+    document.getElementById("suggestions");
+
+    let noResult =
+    document.getElementById("noResult");
+
+    suggestions.innerHTML = "";
+
+    let found = false;
+
+    movies.forEach(function(movie){
+
+        let title =
+        movie.dataset.title.toLowerCase();
+
+        if(title.includes(input)){
+
+            movie.parentElement.style.display =
+            "block";
+
+            found = true;
+
+            if(input !== ""){
+
+                let item =
+                document.createElement("div");
+
+                item.innerText =
+                movie.dataset.title;
+
+                item.onclick =
+                function(){
+
+                    document.getElementById(
+                    "searchInput")
+                    .value =
+                    movie.dataset.title;
+
+                    suggestions.innerHTML = "";
+
+                    movie.click();
+                };
+
+                suggestions.appendChild(item);
+            }
+
+        }
+
+        else{
+
+            movie.parentElement.style.display =
+            "none";
+        }
+
+    });
+
+    noResult.style.display =
+    (!found && input !== "")
+    ? "block"
+    : "none";
+}
+
+</script>
+
+</body>
+</html>

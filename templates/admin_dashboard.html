@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard - Stremex</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='admin.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        STREMEX ADMIN
+    </div>
+
+    <nav>
+
+        <a href="/admin" class="active">
+            Dashboard
+        </a>
+
+        <a href="/admin/users">
+            Users
+        </a>
+
+        <a href="/admin/movies">
+            Movies
+        </a>
+
+        <a href="/admin/analytics">
+            Analytics
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+<div class="page-title">
+
+    <h1>
+        Dashboard Overview
+    </h1>
+
+    <p>
+        Manage your Stremex streaming platform
+    </p>
+
+</div>
+
+<div class="dashboard-grid">
+
+    <div class="card">
+
+        <h3>Total Users</h3>
+
+        <div class="number">
+            {{ total_users }}
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Total Movies</h3>
+
+        <div class="number">
+            {{ total_movies }}
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Total Likes</h3>
+
+        <div class="number">
+            {{ total_likes }}
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Total Ratings</h3>
+
+        <div class="number">
+            {{ total_ratings }}
+        </div>
+
+    </div>
+
+</div>
+
+<div class="quick-actions">
+
+    <a href="/admin/movies" class="action-btn">
+        Upload Movie
+    </a>
+
+    <a href="/admin/users" class="action-btn">
+        View Users
+    </a>
+
+    <a href="/admin/analytics" class="action-btn">
+        View Analytics
+    </a>
+
+</div>
+
+</body>
+</html>

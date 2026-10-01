@@ -1,0 +1,337 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    background:
+    linear-gradient(
+        rgba(0,0,0,.80),
+        rgba(0,0,0,.88)
+    ),
+    url("/static/images/login.jpeg");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    background-repeat:no-repeat;
+
+    color:white;
+}
+
+/* NAVBAR */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 60px;
+
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(18px);
+
+    z-index:1000;
+}
+
+.logo{
+    font-size:2rem;
+    font-weight:800;
+    letter-spacing:4px;
+    color:white;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#d0d0d0;
+    font-size:16px;
+    transition:.3s;
+}
+
+nav a:hover,
+nav a.active{
+    color:#2f81ff;
+}
+
+/* PAGE */
+
+.container{
+    padding:120px 60px 50px;
+}
+
+.container h1{
+    font-size:2.5rem;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#cfcfcf;
+    margin-bottom:40px;
+    font-size:1.1rem;
+}
+
+.subtitle strong{
+    color:#2f81ff;
+}
+
+/* GRID */
+
+.movie-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:30px;
+}
+
+/* CARD */
+
+.movie-card{
+
+    background:#101010;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.45);
+}
+
+.movie-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 20px 50px rgba(0,102,255,.25);
+}
+
+.movie-card img{
+
+    width:100%;
+    height:430px;
+    object-fit:cover;
+    cursor:pointer;
+}
+
+/* INFO */
+
+.movie-info{
+    padding:18px;
+}
+
+.movie-info h3{
+    font-size:1.2rem;
+    margin-bottom:8px;
+}
+
+.genre{
+    color:#aaa;
+    margin-bottom:15px;
+}
+
+/* STATS */
+
+.stats{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:15px;
+    font-weight:600;
+}
+
+.stats span:first-child{
+    color:#ffd700;
+}
+
+.stats span:last-child{
+    color:#ff4d6d;
+}
+
+/* BUTTONS */
+
+.movie-buttons{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.like-btn,
+.list-btn{
+
+    flex:1;
+
+    text-decoration:none;
+
+    text-align:center;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    background:#1e1e1e;
+
+    color:white;
+
+    transition:.3s;
+}
+
+.like-btn:hover{
+    background:#ff3b5c;
+}
+
+.list-btn:hover{
+    background:#0066ff;
+}
+
+/* RATING */
+
+.rating-box{
+
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.rating-box span{
+    width:100%;
+    margin-bottom:5px;
+}
+
+.rating-box a{
+
+    text-decoration:none;
+
+    color:#ffd700;
+
+    background:#181818;
+
+    padding:6px 10px;
+
+    border-radius:8px;
+
+    transition:.3s;
+}
+
+.rating-box a:hover{
+    background:#2b2b2b;
+}
+
+/* VIDEO PLAYER */
+
+.video-container{
+
+    display:none;
+
+    position:fixed;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:90%;
+    max-width:1100px;
+
+    background:black;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    z-index:9999;
+
+    box-shadow:
+    0 30px 80px rgba(0,0,0,.8);
+}
+
+.video-container video{
+
+    width:100%;
+    display:block;
+}
+
+.close-btn{
+
+    position:absolute;
+
+    top:15px;
+    right:15px;
+
+    width:40px;
+    height:40px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,.8);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:18px;
+}
+
+/* EMPTY MESSAGE */
+
+.empty{
+
+    text-align:center;
+
+    margin-top:60px;
+
+    color:#bbb;
+
+    font-size:1.2rem;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .navbar{
+
+        flex-direction:column;
+
+        gap:15px;
+
+        padding:20px;
+    }
+
+    .container{
+
+        padding-top:170px;
+
+        padding-left:20px;
+
+        padding-right:20px;
+    }
+
+    .movie-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .movie-card img{
+
+        height:350px;
+    }
+
+    .container h1{
+
+        font-size:2rem;
+    }
+}

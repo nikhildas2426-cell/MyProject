@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Analytics - Stremex Admin</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='admin.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        STREMEX ADMIN
+    </div>
+
+    <nav>
+
+        <a href="/admin">
+            Dashboard
+        </a>
+
+        <a href="/admin/users">
+            Users
+        </a>
+
+        <a href="/admin/movies">
+            Movies
+        </a>
+
+        <a href="/admin/analytics"
+           class="active">
+            Analytics
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+<div class="page-title">
+
+    <h1>Analytics Dashboard</h1>
+
+    <p>
+        View platform statistics and movie performance
+    </p>
+
+</div>
+
+<div class="analytics-grid">
+
+    <div class="analytics-card">
+        <h3>Total Users</h3>
+        <div class="number">
+            {{ total_users }}
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h3>Total Movies</h3>
+        <div class="number">
+            {{ total_movies }}
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h3>Total Likes</h3>
+        <div class="number">
+            {{ total_likes }}
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h3>Total Ratings</h3>
+        <div class="number">
+            {{ total_ratings }}
+        </div>
+    </div>
+
+</div>
+
+<div class="chart-box">
+
+    <h2>Movie Likes</h2>
+
+    <canvas id="likesChart"></canvas>
+
+</div>
+
+<div class="chart-box">
+
+    <h2>Movie Ratings</h2>
+
+    <canvas id="ratingsChart"></canvas>
+
+</div>
+
+<div class="chart-box">
+
+    <h2>Language Distribution</h2>
+
+    <canvas id="languageChart"></canvas>
+
+</div>
+
+<script>
+
+new Chart(
+document.getElementById("likesChart"),
+{
+    type:"bar",
+
+    data:{
+        labels:[
+            {% for movie in liked_movies %}
+            "{{ movie['name'] }}",
+            {% endfor %}
+        ],
+
+        datasets:[{
+
+            label:"Likes",
+
+            data:[
+                {% for movie in liked_movies %}
+                {{ movie['likes'] or 0 }},
+                {% endfor %}
+            ],
+
+            backgroundColor:"#ff4d6d",
+            borderRadius:8
+
+        }]
+    },
+
+    options:{
+
+        responsive:true,
+
+        plugins:{
+            legend:{
+                display:false
+            }
+        },
+
+        scales:{
+            y:{
+                beginAtZero:true,
+
+                ticks:{
+                    stepSize:2
+                }
+            }
+        }
+
+    }
+
+});
+
+
+new Chart(
+document.getElementById("ratingsChart"),
+{
+    type:"bar",
+
+    data:{
+        labels:[
+            {% for movie in rated_movies %}
+            "{{ movie['name'] }}",
+            {% endfor %}
+        ],
+
+        datasets:[{
+            label:"Average Rating",
+
+            data:[
+                {% for movie in rated_movies %}
+                {{ movie['rating'] or 0 }},
+                {% endfor %}
+            ],
+
+            backgroundColor:"#2f81ff",
+            borderColor:"#1b6cff",
+            borderWidth:1
+        }]
+    },
+
+    options:{
+        responsive:true,
+
+        scales:{
+            y:{
+                beginAtZero:true,
+                min:0,
+                max:5,
+
+                ticks:{
+                    stepSize:1
+                }
+            }
+        }
+    }
+});
+
+new Chart(
+document.getElementById("languageChart"),
+{
+    type:"pie",
+
+    data:{
+
+        labels:[
+            {% for item in languages %}
+            "{{ item['language'] }}",
+            {% endfor %}
+        ],
+
+        datasets:[{
+
+            data:[
+                {% for item in languages %}
+                {{ item['count'] }},
+                {% endfor %}
+            ],
+
+            backgroundColor:[
+                "#2f81ff",
+                "#ff4d6d",
+                "#ffd700",
+                "#00c853",
+                "#9c27b0",
+                "#ff9800",
+                "#00bcd4",
+                "#795548"
+            ]
+
+        }]
+    },
+
+    options:{
+
+        responsive:true,
+
+        plugins:{
+            legend:{
+                position:"bottom"
+            }
+        }
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Stremex</title>
+
+  <link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<section class="hero">
+
+    <div class="overlay"></div>
+
+    <nav class="navbar">
+
+        <h1 class="logo">STREMEX</h1>
+
+        <button class="signin-btn" onclick="goToLogin()">
+            Sign In
+        </button>
+
+    </nav>
+
+    <div class="hero-content">
+
+        <span class="subtitle">
+            PREMIUM MOVIES & SPORTS
+        </span>
+
+        <h1>
+            Entertainment<br>
+            Reimagined
+        </h1>
+
+        <p>
+            Discover blockbuster movies, exclusive originals,
+            and world-class sports streaming in one seamless
+            experience.
+        </p>
+
+        <button class="watch-btn" onclick="goToLogin()">
+            Start Watching
+        </button>
+
+    </div>
+
+</section>
+
+<script>
+function goToLogin() {
+    window.location.href = "/login";
+}
+</script>
+
+</body>
+</html>

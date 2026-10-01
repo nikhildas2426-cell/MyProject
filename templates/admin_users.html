@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Users - Stremex</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='admin.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        STREMEX ADMIN
+    </div>
+
+    <nav>
+
+        <a href="/admin">
+            Dashboard
+        </a>
+
+        <a href="/admin/users" class="active">
+            Users
+        </a>
+
+        <a href="/admin/movies">
+            Movies
+        </a>
+
+        <a href="/admin/analytics">
+            Analytics
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+<div class="page-title">
+
+    <h1>
+        Registered Users
+    </h1>
+
+    <p>
+        Manage all platform users
+    </p>
+
+</div>
+
+<div class="table-container">
+
+<table>
+
+<tr>
+
+<th>ID</th>
+
+<th>Username</th>
+
+<th>Email</th>
+
+</tr>
+
+{% for user in users %}
+
+<tr>
+
+<td>
+{{ user['id'] }}
+</td>
+
+<td>
+{{ user['username'] }}
+</td>
+
+<td>
+{{ user['email'] }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>

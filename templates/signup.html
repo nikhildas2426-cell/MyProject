@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Stremex - Create Account</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='signup.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="signup-container">
+
+    <div class="signup-box">
+
+        <h1 class="logo">STREMEX</h1>
+
+        <p class="subtitle">
+            Create your account and start streaming movies and sports.
+        </p>
+
+        <form action="/register"
+              method="POST"
+              onsubmit="return validatePasswords()">
+
+            <div class="input-group">
+                <input type="text"
+                       name="username"
+                       placeholder="Username"
+                       required>
+            </div>
+
+            <div class="input-group">
+                <input type="email"
+                       name="email"
+                       placeholder="Email Address"
+                       required>
+            </div>
+
+            <div class="input-group">
+                <input type="password"
+                       id="password"
+                       name="password"
+                       placeholder="Password"
+                       required>
+            </div>
+
+            <div class="input-group">
+                <input type="password"
+                       id="confirm_password"
+                       name="confirm_password"
+                       placeholder="Confirm Password"
+                       required>
+            </div>
+
+            <div class="options">
+                <label class="show-pass">
+                    <input type="checkbox"
+                           onclick="togglePassword()">
+                    Show Passwords
+                </label>
+            </div>
+
+            <button class="signup-btn" type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+        <p class="login-text">
+            Already have an account?
+            <a href="{{ url_for('login') }}">Sign In</a>
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    const confirm =
+        document.getElementById("confirm_password");
+
+    password.type =
+        password.type === "password"
+        ? "text"
+        : "password";
+
+    confirm.type =
+        confirm.type === "password"
+        ? "text"
+        : "password";
+}
+
+function validatePasswords() {
+
+    const pass =
+        document.getElementById("password").value;
+
+    const confirm =
+        document.getElementById("confirm_password").value;
+
+    if(pass !== confirm){
+        alert("Passwords do not match");
+        return false;
+    }
+
+    return true;
+}
+</script>
+
+</body>
+</html>

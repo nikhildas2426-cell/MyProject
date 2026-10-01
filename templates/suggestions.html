@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Suggestions | STREMEX</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='suggestions.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        STREMEX
+    </div>
+
+    <nav>
+
+        <a href="/home">
+            Home
+        </a>
+
+        <a href="/movies">
+            Movies
+        </a>
+
+        <a href="/suggestions" class="active">
+            Suggestions
+        </a>
+
+        <a href="/mylist">
+            ➕ My List
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+<section class="container">
+
+    <h1>Recommended For You</h1>
+
+    <p class="subtitle">
+
+        Based on your interest in
+
+        <strong>{{ favorite_genre }}</strong>
+
+    </p>
+
+    {% if movies %}
+
+    <div class="movie-grid">
+
+        {% for movie in movies %}
+
+        <div class="movie-card">
+
+            <img
+            src="{{ url_for('static', filename=movie.poster) }}"
+            onclick="playVideo('/static/{{ movie.video }}')">
+
+            <div class="movie-info">
+
+                <h3>
+
+                    {{ movie.name }}
+
+                </h3>
+
+                <p class="genre">
+
+                    {{ movie.genre }}
+
+                </p>
+
+                <div class="stats">
+
+                    <span>
+
+                        ⭐ {{ ratings[movie.id] }}
+
+                    </span>
+
+                    <span>
+
+                        ❤️ {{ likes[movie.id] }}
+
+                    </span>
+
+                </div>
+
+                <div class="movie-buttons">
+
+                    <a
+                    href="/like/{{ movie.id }}"
+                    class="like-btn">
+
+                        ❤️ Like
+
+                    </a>
+
+                    <a
+                    href="/mylist/{{ movie.id }}"
+                    class="list-btn">
+
+                        {% if movie.id in mylist_movies %}
+                            ❌ Remove
+                        {% else %}
+                            ➕ My List
+                        {% endif %}
+
+                    </a>
+
+                </div>
+
+                <div class="rating-box">
+
+                    <span>Rate:</span>
+
+                    <a href="/rate/{{ movie.id }}/1">⭐1</a>
+
+                    <a href="/rate/{{ movie.id }}/2">⭐2</a>
+
+                    <a href="/rate/{{ movie.id }}/3">⭐3</a>
+
+                    <a href="/rate/{{ movie.id }}/4">⭐4</a>
+
+                    <a href="/rate/{{ movie.id }}/5">⭐5</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <h2 style="margin-top:60px;text-align:center;color:#bbb;">
+
+        No recommendations available.
+
+    </h2>
+
+    {% endif %}
+
+</section>
+
+<div
+id="videoContainer"
+class="video-container">
+
+    <button
+    class="close-btn"
+    onclick="closeVideo()">
+
+        ✕
+
+    </button>
+
+    <video
+    id="videoPlayer"
+    controls>
+
+    </video>
+
+</div>
+
+<script>
+
+let video =
+document.getElementById("videoPlayer");
+
+let container =
+document.getElementById("videoContainer");
+
+function playVideo(src){
+
+    video.src = src;
+
+    container.style.display = "block";
+
+    video.play();
+
+}
+
+function closeVideo(){
+
+    video.pause();
+
+    video.currentTime = 0;
+
+    container.style.display = "none";
+
+}
+
+</script>
+
+</body>
+
+</html>

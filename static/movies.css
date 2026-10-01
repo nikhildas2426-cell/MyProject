@@ -1,0 +1,316 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    background:
+    linear-gradient(
+        rgba(0,0,0,.82),
+        rgba(0,0,0,.88)
+    ),
+    url("/static/images/login.jpeg");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+
+    color:white;
+}
+
+/* NAVBAR */
+
+/* NAVBAR */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 60px;
+
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(18px);
+
+    z-index:1000;
+}
+
+.logo{
+    font-size:2rem;
+    font-weight:800;
+    letter-spacing:4px;
+    color:white;
+}
+
+nav{
+    display:flex;
+    gap:30px;
+}
+
+nav a{
+    text-decoration:none;
+    color:#d0d0d0;
+    font-size:16px;
+    font-weight:500;
+    transition:.3s;
+}
+
+nav a:hover,
+nav a.active{
+    color:#2f81ff;
+}
+
+/* SEARCH */
+
+.search-box{
+    position:relative;
+}
+
+.search-box input{
+    width:280px;
+    padding:12px 18px;
+
+    border:none;
+    outline:none;
+
+    border-radius:50px;
+
+    background:rgba(255,255,255,.08);
+    color:white;
+}
+
+.search-box input::placeholder{
+    color:#aaa;
+}
+
+/* MAIN CONTAINER */
+
+.container{
+    padding-top:110px; /* FIXES HEADER OVERLAP */
+    padding-left:40px;
+    padding-right:40px;
+    padding-bottom:40px;
+}
+
+/* LANGUAGE SECTION */
+
+.language-section{
+    margin-bottom:60px;
+}
+
+.language-title{
+    font-size:2rem;
+    font-weight:700;
+    margin-bottom:25px;
+    color:white;
+}
+
+/* MOVIE ROW */
+
+.movie-row{
+    display:flex;
+    gap:22px;
+    overflow-x:auto;
+    padding-bottom:15px;
+}
+
+.movie-row::-webkit-scrollbar{
+    display:none;
+}
+
+/* MOVIE CARD */
+
+.movie-card{
+    width:250px;          /* BIGGER */
+    flex-shrink:0;
+
+    background:#101010;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.4);
+}
+
+.movie-card:hover{
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 15px 40px rgba(0,102,255,.25);
+}
+
+.movie-card img{
+    width:100%;
+    height:360px;          /* BIGGER */
+    object-fit:cover;
+    cursor:pointer;
+}
+
+.movie-info{
+    padding:15px;
+}
+
+.movie-info h3{
+    font-size:1.05rem;
+    margin-bottom:8px;
+}
+
+.movie-info p{
+    color:#b5b5b5;
+    font-size:14px;
+}
+
+/* VIDEO PLAYER */
+
+.video-container{
+    display:none;
+
+    position:fixed;
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:90%;
+    max-width:1000px;
+
+    background:black;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    z-index:9999;
+}
+
+.video-container video{
+    width:100%;
+    display:block;
+}
+
+.close-btn{
+    position:absolute;
+    top:10px;
+    right:10px;
+
+    width:40px;
+    height:40px;
+
+    border:none;
+    border-radius:50%;
+
+    background:rgba(0,0,0,.8);
+
+    color:white;
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+    .navbar{
+        flex-direction:column;
+        gap:10px;
+        padding:15px;
+    }
+
+    .container{
+        padding-top:160px;
+    }
+
+    .search-box input{
+        width:100%;
+    }
+
+    .movie-card{
+        width:210px;
+    }
+
+    .movie-card img{
+        height:300px;
+    }
+}
+.genre{
+    color:#b5b5b5;
+    margin-bottom:12px;
+}
+
+.stats{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:15px;
+    font-weight:600;
+}
+
+.stats span:first-child{
+    color:#ffd700;
+}
+
+.stats span:last-child{
+    color:#ff4d6d;
+}
+
+.movie-buttons{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.like-btn,
+.list-btn{
+    flex:1;
+    text-decoration:none;
+    text-align:center;
+    padding:10px;
+    border-radius:10px;
+    background:#1a1a1a;
+    color:white;
+    transition:.3s;
+}
+
+.like-btn:hover{
+    background:#ff3b5c;
+}
+
+.list-btn:hover{
+    background:#0066ff;
+}
+
+.rating-box{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    align-items:center;
+}
+
+.rating-box span{
+    width:100%;
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.rating-box a{
+    text-decoration:none;
+    padding:6px 10px;
+    border-radius:8px;
+    background:#181818;
+    color:#ffd700;
+    transition:.3s;
+}
+
+.rating-box a:hover{
+    background:#2a2a2a;
+}

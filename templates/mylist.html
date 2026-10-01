@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Stremex | My List</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='mylist.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">STREMEX</div>
+
+   <nav>
+
+        <a href="/home">
+            Home
+        </a>
+
+        <a href="/movies">
+            Movies
+        </a>
+
+        <a href="/suggestions">
+            Suggestions
+        </a>
+
+        <a href="/mylist" class="active">
+            ➕ My List
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    </nav>
+</header>
+
+<section class="container">
+
+    <h2>My Saved Movies</h2>
+
+    {% if saved_movies %}
+
+    <div class="movie-grid">
+
+        {% for movie in saved_movies %}
+
+        <div class="movie-card">
+
+            <!-- POSTER (CLICK TO PLAY) -->
+            <img
+                src="{{ url_for('static', filename=movie['poster']) }}"
+                class="movie-poster"
+                onclick="playVideo('{{ url_for('static', filename=movie['video']) }}')"
+            >
+
+            <div class="movie-info">
+
+                <h3 class="movie-title">
+                    {{ movie['name'] }}
+                </h3>
+
+                <p class="movie-genre">
+                    {{ movie['genre'] }}
+                </p>
+
+                <div class="movie-stats">
+
+                    <span>⭐ {{ ratings[movie['id']] }}</span>
+                    <span>❤️ {{ likes[movie['id']] }}</span>
+
+                </div>
+
+                <div class="actions">
+
+                    <button class="like-btn">
+                        ❤️ Like
+                    </button>
+
+                    <a href="/mylist/{{ movie['id'] }}"
+                       class="remove-btn">
+                        ✖ Remove
+                    </a>
+
+                </div>
+
+                <div class="rate-box">
+
+                    <p>Rate:</p>
+
+                    <div class="stars">
+                        <span>⭐1</span>
+                        <span>⭐2</span>
+                        <span>⭐3</span>
+                        <span>⭐4</span>
+                        <span>⭐5</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <p class="empty">No Movies Added Yet</p>
+
+    {% endif %}
+
+</section>
+
+<!-- VIDEO PLAYER -->
+<div id="videoContainer" class="video-container">
+
+    <button class="close-btn" onclick="closeVideo()">✕</button>
+
+    <video id="videoPlayer" controls></video>
+
+</div>
+
+<script>
+
+let video = document.getElementById("videoPlayer");
+let container = document.getElementById("videoContainer");
+
+function playVideo(src){
+    video.src = src;
+    container.style.display = "flex";
+    video.play();
+}
+
+function closeVideo(){
+    video.pause();
+    video.currentTime = 0;
+    container.style.display = "none";
+    video.src = "";
+}
+
+</script>
+
+</body>
+</html>

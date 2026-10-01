@@ -1,0 +1,314 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    font-family:'Inter',sans-serif;
+    background:#050505;
+}
+
+/* Background */
+
+.background{
+    position:fixed;
+    inset:0;
+
+    background:
+    linear-gradient(
+        rgba(0,0,0,.55),
+        rgba(0,0,0,.85)
+    ),
+    url("https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=1920&q=80");
+
+    background-size:cover;
+    background-position:center;
+
+    animation:zoomBackground 20s ease-in-out infinite alternate;
+}
+.background::after{
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    background:#0066ff;
+
+    border-radius:50%;
+
+    filter:blur(220px);
+
+    opacity:.15;
+
+    top:-100px;
+    right:-100px;
+}
+
+/* Container */
+
+.login-container{
+    position:relative;
+    z-index:10;
+
+    width:100%;
+
+    display:flex;
+    justify-content:center;
+
+    padding:20px;
+}
+
+/* Login Card */
+
+.login-box{
+    width:100%;
+    max-width:430px;
+
+    background:rgba(15,15,15,.80);
+
+    backdrop-filter:blur(25px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:28px;
+
+    padding:45px;
+
+    position:relative;
+
+    box-shadow:
+    0 30px 80px rgba(0,0,0,.60);
+}
+
+.login-box::before{
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+    height:220px;
+
+    background:#0066ff;
+
+    border-radius:50%;
+
+    filter:blur(120px);
+
+    opacity:.12;
+
+    top:-60px;
+    right:-60px;
+
+    z-index:-1;
+}
+
+/* Logo */
+
+.logo{
+    text-align:center;
+
+    color:white;
+
+    font-size:2.2rem;
+
+    font-weight:800;
+
+    letter-spacing:6px;
+
+    margin-bottom:15px;
+}
+
+/* Subtitle */
+
+.subtitle{
+    text-align:center;
+
+    color:#bdbdbd;
+
+    line-height:1.7;
+
+    margin-bottom:25px;
+}
+
+/* Error Message */
+
+.error-message{
+    background:rgba(255,59,59,.15);
+
+    border:1px solid rgba(255,59,59,.4);
+
+    color:#ff7070;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    margin-bottom:20px;
+
+    font-size:.9rem;
+}
+
+/* Inputs */
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group input{
+    width:100%;
+
+    padding:16px 18px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.04);
+
+    color:white;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.3s;
+}
+
+.input-group input:focus{
+    border-color:#0066ff;
+
+    box-shadow:
+    0 0 20px rgba(0,102,255,.25);
+}
+
+.input-group input::placeholder{
+    color:#9b9b9b;
+}
+
+/* Options */
+
+.options{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:25px;
+
+    font-size:.9rem;
+}
+
+.show-pass{
+    color:#cfcfcf;
+}
+
+.show-pass input{
+    margin-right:6px;
+}
+
+.forgot{
+    color:#6ea8ff;
+    text-decoration:none;
+}
+
+.forgot:hover{
+    text-decoration:underline;
+}
+
+/* Button */
+
+.login-btn{
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0066ff,
+        #3f8cff
+    );
+
+    color:white;
+
+    font-size:1rem;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.login-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 15px 35px rgba(0,102,255,.45);
+}
+
+/* Footer */
+
+.signup-text{
+    text-align:center;
+
+    color:#bdbdbd;
+
+    margin-top:25px;
+}
+
+.signup-text a{
+    color:#6ea8ff;
+
+    text-decoration:none;
+
+    font-weight:600;
+}
+
+.signup-text a:hover{
+    text-decoration:underline;
+}
+
+/* Animation */
+
+@keyframes zoomBackground{
+
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform:scale(1.08);
+    }
+}
+
+/* Mobile */
+
+@media(max-width:500px){
+
+    .login-box{
+        padding:30px;
+    }
+
+    .logo{
+        font-size:1.8rem;
+    }
+
+    .options{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+    }
+}
